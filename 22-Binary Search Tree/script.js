@@ -1,0 +1,103 @@
+// At Binary tree, each parent has only (at most) 2 childred
+// Binary search tree is a type of binary tree
+// Every parent has at most 2 children
+// Every node to the left of the parent node is always less than the parent
+// Every node to the right of the parent node is always greater than the parent
+class Node
+{
+    constructor(value)
+    {
+        this.value = value;
+        this.left = null;
+        this.right = null;
+    }
+}
+
+class BinarySearchTree
+{
+    constructor()
+    {
+        this.root = null;
+    }
+    insert(value)
+    {
+        let newNode = new Node(value);
+
+        if(!this.root)
+        {
+            console.log('root')
+            this.root = newNode;
+            return this;
+        }
+
+        let current = this.root;
+
+        while(true)
+        {
+            if(value === current.value) return undefined;
+            if(value < current.value)
+            {
+                console.log('Left of the tree');
+                if(current.left === null) 
+                {
+                    current.left = newNode;
+                    return this;
+                }
+                else current = current.left;
+            }
+            else
+            {
+                console.log('Right of the tree');
+                if(current.right === null)
+                {
+                    current.right = newNode;
+                    return this;
+                }
+                else current = current.right;
+            }
+        }
+    } // Time comp: O(log(n))
+    find(value)
+    {
+        if(!this.root) return false;
+        let current = this.root;
+        if(value === current.value) return current;
+
+        let found = false;
+        while(current && !found)
+        {
+            if(value < current.value) current = current.left;
+            else if (value > current.value) current = current.right;
+            else found = true;
+        }
+        if(!found) return false;
+        return current;
+    } // Time comp: O(log(n))
+    contains(value) // the same as "find" method but it returns true or false
+    {
+        if(!this.root) return false;
+        let current = this.root;
+        if(value === current.value) return current;
+
+        // let found = false;
+        while(current)
+        {
+            if(value < current.value) current = current.left;
+            else if (value > current.value) current = current.right;
+            else
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+var tree = new BinarySearchTree();
+tree.insert(10)
+tree.insert(5)
+tree.insert(13)
+tree.insert(11)
+tree.insert(2)
+tree.insert(16)
+tree.insert(7)
