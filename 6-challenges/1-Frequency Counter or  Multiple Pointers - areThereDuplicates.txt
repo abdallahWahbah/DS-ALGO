@@ -1,0 +1,50 @@
+question course link: https://www.udemy.com/course/js-algorithms-and-data-structures-masterclass/learn/quiz/4410592#overview
+
+Frequency Counter / Multiple Pointers - areThereDuplicates
+Implement a function called, areThereDuplicates which accepts a variable number of arguments, and checks whether there are any duplicates among the arguments passed in.  You can solve this using the frequency counter pattern OR the multiple pointers pattern.
+
+Restrictions:
+
+Time - O(n)
+
+Space - O(n)
+
+
+const areThereDuplicates = (...arr) => 
+{
+    // // using frequency object
+    // if(arr.length === 0) return false;
+
+    // let freqObj = {}
+    // for(let i = 0; i < arr.length; i++)
+    // {
+    //     freqObj[arr[i]] = ++freqObj[arr[i]] || 1;
+    // }
+    // for(const [key , value] of Object.entries(freqObj))
+    // {
+    //     if(value > 1) return true;
+    // }
+    // return false;
+
+
+    // // using multiple pointers
+    arr.sort((a, b) => {
+        if (a < b) return -1;
+        if (a > b) return 1;
+        return 0;
+    });
+
+    if(arr.length === 0) return true;
+
+    let i = 0;
+    for(let j = 1; j < arr.length; j++)
+    {
+        if(arr[i] === arr[j]) return true;
+
+        i++;
+    }
+    return false;
+}
+console.log(areThereDuplicates(1, 2, 3)) // false
+console.log(areThereDuplicates(1, 2, 2)) // true 
+console.log(areThereDuplicates('a', 'b', 'c', 'a')) // true 
