@@ -5,8 +5,9 @@
 // "a".charCodeAt(0) - 96 = 1
 // "d".charCodeAt(0) - 96 = 4
 
-// Separate Chaining and Linear Probing are 2 strategies used to deal with 2 keys (or more) that has the same index
-// Separate Chaininginvolving the values together in another DS (such as a new array)
+// Separate Chaining and Linear Probing are 2 strategies used 
+// 		to deal with 2 keys (or more) that has the same index
+// Separate Chaining involves the values the has the same index together in another DS (such as a new array)
 // Linear Probing invloves moving forward to the next empty slot
 // We are using Separate Chaining
 // Watch video 7 to remember the 2 techniques

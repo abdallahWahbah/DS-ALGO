@@ -1,14 +1,14 @@
-// Doubly liked list: much better in certain ways and easier to navigate .. but it comes at a cost of more memory
 class Node
 {
     constructor(val)
     {
         this.val = val;
-        this.next = null;
-        this.prev = null;
+        this.next = next;
+        this.prev = prev;
     }
 }
-class DoublyLinkedList 
+
+class DoublyLinkedList
 {
     constructor()
     {
@@ -16,14 +16,15 @@ class DoublyLinkedList
         this.tail = null;
         this.length = 0;
     }
+
+    ///////////////////////// push /////////////////////////
     push(val)
     {
         let newNode = new Node(val);
-
-        if(!this.head) // if (this.length === 0)
+        if(!this.head)
         {
             this.head = newNode;
-            this.tail =newNode;
+            this.tail = newNode;
         }
         else
         {
@@ -31,36 +32,33 @@ class DoublyLinkedList
             newNode.prev = this.tail;
             this.tail = newNode;
         }
-
         this.length++;
-        return newNode;
+        return this;
     }
+    ///////////////////////// pop /////////////////////////
     pop()
     {
-        if(this.length === 0) return undefined;
-        
+        if(!this.head) return;
         let poppedNode = this.tail;
-        
+
         if(this.length === 1)
         {
             this.head = null;
             this.tail = null;
         }
         else
-        {    
+        {
             this.tail = poppedNode.prev;
-            this.tail.next = null;
             poppedNode.prev = null;
+            this.tail.next = null;
         }
-
         this.length--;
-        // console.log(poppedNode);
         return poppedNode;
     }
-    shift()
+    ///////////////////////// shift /////////////////////////
+    shift() //remove from the beginning
     {
-        if(!this.head) return null;
-
+        if(!this.head) return;
         let oldHead = this.head;
 
         if(this.length === 1)
@@ -74,65 +72,61 @@ class DoublyLinkedList
             this.head.prev = null;
             oldHead.next = null;
         }
-
         this.length--;
         return oldHead;
     }
-    unshift(val)
+    ///////////////////////// unshift /////////////////////////
+    unshift(val) // add to the beginning
     {
-        let newNode = new Node(val);
+        let newNode = new Node(val)
 
-        if(!this.head) 
+        if(!this.head)
         {
             this.head = newNode;
             this.tail = newNode;
         }
         else
         {
-            let prevHead = this.head;
-            prevHead.prev = newNode;
+            this.head.prev = newNode;
+            newNode.next = this.head;
             this.head = newNode;
-            newNode.next = prevHead;
         }
 
         this.length++;
-        return this;
+        return newNode;
     }
-    get(index) 
+    ///////////////////////// get /////////////////////////
+    get(index)
     {
-        if(index < 0 || index >= this.length) return null;
+        if(index < 0 || index >= this.length) return -1;
 
-        let node = null;
+        let node;
 
-        if(index <= this.length / 2) // start searching from the left (head)
+        if(index <= this.length / 2)
         {
-            // console.log('working from left')
             node = this.head;
-
             while(index > 0)
             {
                 node = node.next;
                 index--;
             }
         }
-        else // start searching from the right(tail)
+        else
         {
-            // console.log('working from right')
             node = this.tail;
             let count = this.length - 1;
-
-            while(count !== index)
+            while(index !== count)
             {
                 node = node.prev;
                 count--;
             }
         }
         return node;
-    } // Timp comp: O(n) Technically, it is O(n/2) but it still O(n)
+    }
+    ///////////////////////// set /////////////////////////
     set(index, val)
     {
-        let node = get(index);
-
+        let node = this.get(index);
         if(node)
         {
             node.val = val;
@@ -140,12 +134,12 @@ class DoublyLinkedList
         }
         return false;
     }
+    ///////////////////////// insert /////////////////////////
     insert(index, val)
     {
-        if(index < 0 || index > this.length) return false;
-
-        if(index === this.length) return !!this.push(val);
-        if(index === 0) return !!this.unshift(val);
+        if(index < 0 || index > this.length) return;
+        if(index === 0) return this.unshift(val);
+        if(index === this.length) return this.push(val);
 
         let newNode = new Node(val);
         let prevNode = this.get(index - 1);
@@ -156,38 +150,43 @@ class DoublyLinkedList
 
         newNode.prev = prevNode;
         newNode.next = nextNode;
-
         this.length++;
-        return true;
-    } // Timp comp: O(1)
+        return newNode
+    }
+    ///////////////////////// remove /////////////////////////
     remove(index)
     {
-        if(index < 0 || index >= this.length) return false;
-
-        if(index === this.length - 1) return this.pop();
+        if(index < 0 || index >= this.length) return;
         if(index === 0) return this.shift();
+        if(index === this.length - 1) return this.pop();
 
+        let prevNode = this.get(index - 1);
         let removedNode = this.get(index);
-        if(removedNode)
-        {
-            let prevNode = removedNode.prev;
-            let nextNode = removedNode.next;
+        let nextNode = this.get(index + 1);
 
-            prevNode.next = nextNode;
-            nextNode.prev = prevNode;
+        prevNode.next = nextNode;
+        nextNode.prev = prevNode;
 
-            removedNode.prev = null;
-            removedNode.next = null;
-        }
+        removedNode.next = null;
+        removedNode.prev = null;
         this.length--;
         return removedNode;
-    } // Timp comp: O(1)
+    }
 }
 
-var list = new DoublyLinkedList()
-list.push("Abdallah")
-list.push("Mahmoud")
-list.push("Abdelbary")
-list.push("Abdallah2")
-list.push("Ahmed")
-list.push("Wahbah")
+var listItems = new DoublyLinkedList()
+listItems.push("Abdallah")
+listItems.push("Mahmoud")
+listItems.push("Abdelbary")
+listItems.push("Abdallah2")
+listItems.push("Ahmed")
+listItems.push("Wahbah")
+
+//listItems.pop()
+//listItems.shift()
+listItems.unshift("hello")
+listItems.get(4)
+
+listItems.insert(1, "Mr: ")
+
+//listItems.remove(1)

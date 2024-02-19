@@ -1,0 +1,44 @@
+// He solved it in another way
+
+const anagram = (str1, str2) =>
+{
+    if(str1.length !== str2.length) return false;
+
+    let strObj1 = {};
+    let strObj2 = {};
+
+    for(let i = 0; i < str1.length; i++)
+    {
+        strObj1[str1[i]] = ++strObj1[str1[i]] || 1;
+        strObj2[str2[i]] = ++strObj2[str2[i]] || 1;
+    }
+
+    console.log(strObj1, strObj2);
+
+    for(let [key, value] of Object.entries(obj1))
+    {
+        if(! key in obj2) return false;
+        if(value !== obj2[key]) return false;
+    }
+
+    //for(let key in strObj1)
+    //{
+        //if(!(key in strObj2)) return false;
+        //if(strObj1[key] !== strObj2[key]) return false;
+    //}
+
+    return true;
+}
+
+console.log(anagram('anagrams', 'nagaramm')); // false
+console.log(anagram('azz', 'aza')); // false
+console.log(anagram('azz', 'zza')); // true
+
+console.log(anagram('', '')) // true
+console.log(anagram('aaz', 'zza')) // false
+console.log(anagram('anagram', 'nagaram')) // true
+console.log(anagram("rat","car")) // false
+console.log(anagram('awesome', 'awesom')) // false
+console.log(anagram('amanaplanacanalpanama', 'acanalmanplanpamana')) // false
+console.log(anagram('qwerty', 'qeywrt')) // true
+console.log(anagram('texttwisttime', 'timetwisttext')) // true

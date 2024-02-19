@@ -1,0 +1,22 @@
+const binarySearch = (arr, num) =>
+{
+    let left = 0; right = arr.length -1;
+
+    while(left <= right)
+    {
+        let middle = Math.floor((left + right) /2);
+        let middleValue = arr[middle];
+
+        if(num === middleValue) return middle;
+        else if (num > middleValue) left = middle + 1;
+        else right = middle -1;
+    }
+
+    return -1;
+} // Time comp: O(log(n))
+
+console.log(binarySearch([1, 2, 3, 4, 5, 6, 7, 8, 9], 9));  // 8
+console.log(binarySearch([1, 2, 3, 4, 5, 6, 7, 8, 9], 15)); // -1
+console.log(binarySearch([1, 2, 3, 4, 6, 9], 2)); // 1
+console.log(binarySearch([1, 2, 3, 4, 6, 9], 6)); // 4
+console.log(binarySearch([1, 2, 3, 4, 6, 9], 9)); // 5

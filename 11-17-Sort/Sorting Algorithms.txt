@@ -1,0 +1,258 @@
+////////////////////////////////////////////// Section 11 (Bubble sort) //////////////////////////////////////////////
+// Lecture 4, 5, 7
+const bubbleSort = (arr) =>
+{
+    const swap = (arr, indx1, indx2) => [arr[indx1], arr[indx2]] = [arr[indx2], arr[indx1]];
+    for(let i = arr.length; i > 0; i--)
+    {
+        for(let j = 0; j < i - 1; j++)
+        {
+            if(arr[j] > arr[j + 1]) swap(arr, j, j + 1)
+        }
+    }
+    return arr;
+} // Time comp: O(n^2)
+console.log(bubbleSort([8,1,2,3,4,5,6,7]))
+console.log(bubbleSort([8,2,1,3,0,5,4,6,9,7]))
+
+// Lecture 6: Optimized Bubble Sort
+// The idea is to stop iterating and comparing if the array is already sorted
+// in this example .. after the second iteration, the array will be sorted, so no swaps will happen, then break 
+const bubbleSort = (arr) =>
+{
+    const swap = (arr, indx1, indx2) => [arr[indx1], arr[indx2]] = [arr[indx2], arr[indx1]];
+    let swapped;
+    for(let i = arr.length; i > 0; i--)
+    {
+        swapped = false;
+        for(let j = 0; j < i - 1; j++)
+        {
+            console.log(arr, arr[j], arr[j+1])
+
+            if(arr[j] > arr[j + 1])
+            {
+                 swap(arr, j, j + 1)
+                swapped = true;
+            }
+        }
+        console.log("-------------")
+        if(swapped === false) break;
+    }
+    return arr;
+}
+
+console.log(bubbleSort([8,1,2,3,4,5,6,7]))
+console.log(bubbleSort([8,2,1,3,0,5,4,6,9,7]))
+
+
+// I was revising it and codded it in another way .. focus more on the previous solution
+const bubbleSort = (arr) =>
+{
+    const swap = (arr, indx1, indx2) => [arr[indx1], arr[indx2]] = [arr[indx2], arr[indx1]];
+    for(let i = 0; i < arr.length; i++)
+    {
+        for(let j = i + 1; j < arr.length; j++)
+        {
+            if(arr[i] > arr[j]) swap(arr, i, j);
+        }
+    }
+    return arr;
+}
+
+
+
+
+////////////////////////////////////////////// Section 12 (Selection sort) //////////////////////////////////////////////
+const selectionSort = (arr) =>
+{
+    const swap = (arr, indx1, indx2) => [arr[indx2], arr[indx1]] = [arr[indx1], arr[indx2]];
+
+    for(let i = 0; i < arr.length; i++)
+    {
+        let min = i;
+        for(let j = i + 1; j < arr.length; j++)
+        {
+            if(arr[j] < arr[min]) min = j;
+        }
+        if(i !== min) swap(arr, min, i)  // if the min number is still the first one in the new loop .. if you don't remember or understand .. ignore the "if" and write the swap
+    }
+    return arr;
+} // Time comp: O(n^2)
+
+console.log(selectionSort([6,4,2,5,7]))
+console.log(selectionSort([34, 22, 10, 19, 17]))
+
+
+
+
+
+
+////////////////////////////////////////////// Section 13 (Insertion sort) //////////////////////////////////////////////
+const insertionSort = arr =>
+{
+    for(let i = 1; i < arr.length; i++)
+    {
+        let currentVal = arr[i];
+        let j;
+        for(j = i - 1; j >= 0 && arr[j] > currentVal; j--)
+        {
+            arr[j + 1] = arr[j]
+        }
+
+        arr[j+1] = currentVal
+    }
+    return arr;
+} // Time comp: O(N^2)
+
+console.log(insertionSort([2, 1, 9, 75, 4]))
+console.log(insertionSort([2, 10, 1, 9, 75, 20]))
+
+
+
+
+
+
+////////////////////////////////////////////// Section 15 (Merge sort) //////////////////////////////////////////////
+// Lecture 4, 5
+// Merging(and sorting) 2 sorted arrays
+const merge = (arr1, arr2) =>
+{
+    let i = j = 0;
+    let result = [];
+
+    while(i < arr1.length && j < arr2.length)
+    {
+        if(arr1[i] < arr2[j])
+        {
+            result.push(arr1[i])
+            i++
+        }
+        else
+        {
+            result.push(arr2[j])
+            j++
+        }
+    }
+    while(i < arr1.length)
+    {
+        result.push(arr1[i])
+        i++
+    }
+    while(j < arr2.length)
+    {
+        result.push(arr2[j])
+        j++
+    }
+    
+    return result
+}
+//console.log(merge([1, 10, 50], [2, 14, 99, 100]))
+// Time comp: O(nlog(n)) ... log(n) comes from splitting, n comes from comparing items in each array(merge func)
+// Space comp: O(n)
+
+// Watch video 8 to understand where the time comp came from
+
+const mergeSort = (arr) =>
+{
+    if(arr.length <= 1) return arr;
+
+    let middle = Math.floor((arr.length) / 2);
+    
+    let left = mergeSort(arr.slice(0, middle));
+    let right = mergeSort(arr.slice(middle));
+    return merge(left, right)
+}
+console.log(mergeSort([10, 24, 76, 73, 1, 29, 12]))
+
+
+
+
+////////////////////////////////////////////// Section 16 (Quick sort) //////////////////////////////////////////////
+// If you got stuck, watch the lectures again 
+const pivot = (arr, start =0 , end = arr.length - 1) =>
+{
+    const swap = (arr, idx1, idx2) => [arr[idx1], arr[idx2]] = [arr[idx2], arr[idx1]];
+
+    // We are assuming the pivot is always the first element
+    let pivot = arr[start];
+    let swapIndx = start;
+
+    for(let i = start + 1; i <= end; i++)
+    {
+        if(pivot > arr[i])
+        {
+            swapIndx++;
+            swap(arr, swapIndx, i);
+        }
+    }
+
+    // Swap the pivot from the start the swapPoint
+    swap(arr, start, swapIndx);
+    return swapIndx;
+}
+//pivot([4,8,2,1,5,7,6,3])
+
+const quickSort = (arr, left = 0, right = arr.length - 1) =>
+{
+    if(left < right)
+    {
+        let pivotIndex = pivot(arr, left, right);
+        //Left
+        quickSort(arr, left, pivotIndex - 1);
+        // Right
+        quickSort(arr, pivotIndex + 1, right);
+    }
+    return arr;
+}
+
+console.log(quickSort([100,-3,2,4,6,9,1,2,5,3,23]))
+
+
+
+
+////////////////////////////////////////////// Section 17 (Radix sort) //////////////////////////////////////////////
+const getDigit = (num, place) =>
+{
+    return Math.floor((Math.abs(num) / 10 ** place) % 10);
+}
+// getDigit(12345, 0); // 5    12345  % 10 = 5
+// getDigit(12345, 1); // 4    1234.5 % 10 = 4 
+// getDigit(12345, 2); // 3    123.45 % 10 = 3
+// getDigit(12345, 3); // 2    12.345 % 10 = 2
+// getDigit(12345, 4); // 1    1.2345 % 10 = 1
+const digitCount = (number) =>
+{
+    if(number === 0) return 1;
+    // return String(number).split("").length;
+    return Math.floor(Math.log10(Math.abs(number))) + 1;
+}
+const mostDigits = (arr) =>
+{
+    let maxDigits = 0;
+    for(let i = 0; i< arr.length; i++)
+    {
+        maxDigits = Math.max(maxDigits, digitCount(arr[i]));
+    }
+    return maxDigits;
+}
+// console.log(mostDigits([5, 55, 555, 5555, 55555]))
+const radixSort = (arr) =>
+{
+    const maxDigitCount = mostDigits(arr);
+    for(let i = 0; i < maxDigitCount; i++)
+    {
+        let digitBucket = Array.from({length: 10}, () => []);
+
+        for(let j = 0; j < arr.length; j++)
+        {
+            let digit = getDigit(arr[j], i);
+            digitBucket[digit].push(arr[j]);
+        }
+
+        arr = [].concat(...digitBucket);
+    }
+    return arr;
+} // Time comp: O(nk) : k is the number of most digits
+
+console.log(radixSort([23,345,5467,12,2345,9852]))
+

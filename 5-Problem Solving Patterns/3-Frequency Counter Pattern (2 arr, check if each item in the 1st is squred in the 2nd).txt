@@ -1,0 +1,63 @@
+// write a funciton that accepts 2 arrays and checks if all the numbers in the 1st 
+// arr in the 2nd arr but squared 
+// order is not important (the 1st num in the 1st arr (eg: squared may exist in the last position in the 2nd arr)
+
+
+const sameNaive = (arr1, arr2) =>
+{
+    
+    if(arr1.length !== arr2.length) return false;
+
+    for(let i = 0; i < arr1.length; i++)
+    {
+        let item2Index = arr2.indexOf(arr1[i]**2); // another loop, O(n**2)
+        if(item2Index === -1) return false;
+        arr2.splice(item2Index, 1)
+    }
+    return true;
+}
+
+//console.log(sameNaive([1,2,3,2], [9,1,4,4]))
+//console.log(sameNaive([1,2,3,3], [9,1,4,4]))
+
+const sameFrequencyCounter = (arr1, arr2) =>
+{
+    if(arr1.length !== arr2.length) return false;
+    let frequenceCounter1 = {};
+    let frequenceCounter2 = {};
+
+    for(let i = 0; i < arr1.length; i++)
+    {
+        frequenceCounter1[arr1[i]] = ++frequenceCounter1[arr1[i]] || 1;
+        frequenceCounter2[arr2[i]] = ++frequenceCounter2[arr2[i]] || 1;
+    }
+
+    console.log(frequenceCounter1, frequenceCounter2)
+    // {1: 1, 2: 2, 3: 1},{9: 1, 1: 1, 4: 2}
+    /**
+     * {            {
+     *      1: 1,       1: 1,
+     *      2: 2,       4: 2,
+     *      3: 1        9: 1
+     * }            }
+     */
+    for(let key in frequenceCounter1)
+    {
+        if(!(key ** 2 in frequenceCounter2)) return false; 
+        if(frequenceCounter1[key] !== frequenceCounter2[key ** 2]) return false;
+    }
+
+    return true
+}
+
+console.log(sameFrequencyCounter([1,2,3,2], [9,1,4,4])) // true
+console.log(sameFrequencyCounter([1,2,3,3], [9,1,4,4])) // false
+
+
+// another way for the last loop
+
+for(let [key, value] of Object.entries(obj1))
+{
+    if(!(key ** 2 in obj2)) return false;
+    if(value !== obj2[key**2]) return false
+}

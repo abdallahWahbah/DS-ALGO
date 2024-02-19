@@ -1,0 +1,12 @@
+const getIndex = (arr, value) =>
+{
+    for(let i = 0; i < arr.length; i++)
+    {
+        if(arr[i] === value) return i;
+    }
+    return -1;
+} // Time comp: O(n)
+
+console.log(getIndex([1, 2, 3, 4, 5, 6, 7, 8, 9], 7));  // 6
+console.log(getIndex([1, 2, 3, 4, 5, 6, 7, 8, 9], 10)); // -1
+

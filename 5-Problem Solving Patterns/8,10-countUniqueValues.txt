@@ -1,0 +1,32 @@
+// He solved it in another way (with multiple pointer pattern (better than mine cause you will need it))
+// His solution is more important
+const countUniqueValues = (arr) =>
+{
+    if(arr.length === 0) return 0;
+    let uniqObject = {};
+    for(let i = 0; i< arr.length; i++)
+    {
+        uniqObject[arr[i]] = ++uniqObject[arr[i]] || 1;
+    }
+    return Object.Keys(uniqObject).length;
+}
+
+console.log(countUniqueValues([1,2,2,5,7,7,99]))
+
+
+// HIS SOLUTION >>>>>>>>> to get number of unique values and print them (print them is defined by me)
+
+function countUniqueValues(arr){
+    if(arr.length === 0) return 0;
+    var i = 0;
+    for(var j = 1; j < arr.length; j++){
+        if(arr[i] !== arr[j]){
+            i++;
+            arr[i] = arr[j]
+        }
+    }
+    console.log(i + 1)
+    console.log(arr.splice(0, i + 1))
+    return i + 1;
+}
+countUniqueValues([1,2,2,5,7,7,99])

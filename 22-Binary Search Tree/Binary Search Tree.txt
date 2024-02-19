@@ -77,7 +77,7 @@ class BinarySearchTree
     {
         if(!this.root) return false;
         let current = this.root;
-        if(value === current.value) return current;
+        if(value === current.value) return true;
 
         // let found = false;
         while(current)
@@ -101,3 +101,6 @@ tree.insert(11)
 tree.insert(2)
 tree.insert(16)
 tree.insert(7)
+//        10
+//   5         13
+// 2   7      11    16

@@ -1,0 +1,22 @@
+// return the index of the number in a ((sorted)) array if exists or return -1
+const binarySearch = (sortedArr, number) =>
+{
+    let left = 0;
+    let right = sortedArr.length - 1;
+
+    while(left <= right)
+    {
+        let middle = Math.floor((left + right) / 2);
+        let middleValue = sortedArr[middle];
+        if (middleValue < number) left = middle + 1;
+        else if(middleValue > number) right = middle - 1;
+        else return middle
+    }
+
+    return -1;
+}
+
+console.log(binarySearch([1, 2, 3, 4, 6, 9], 2)); // 1
+console.log(binarySearch([1, 2, 3, 4, 6, 9], 6)); // 4
+console.log(binarySearch([1, 2, 3, 4, 6, 9], 9)); // 5
+

@@ -59,7 +59,7 @@ class MaxBinaryHeap
             let leftChild, rightChild;
             let swap = null;
 
-            if(leftChildIndex < length)
+            if(leftChildIndex < length) // to make sure that there is an element in that position
             {
                 leftChild = this.values[leftChildIndex];
                 if(leftChild > element) // x
@@ -67,7 +67,7 @@ class MaxBinaryHeap
                     swap = leftChildIndex;
                 }
             }
-            if(rightChildIndex < length)
+            if(rightChildIndex < length)  // to make sure that there is an element in that position
             {
                 rightChild = this.values[rightChildIndex];
                 if((swap === null && rightChild  > element)||(swap !== null && rightChild > leftChild)) // x
@@ -82,6 +82,7 @@ class MaxBinaryHeap
         }
     }
 }
+
 let heap = new MaxBinaryHeap();
 heap.insert(41);
 heap.insert(39);
@@ -89,4 +90,23 @@ heap.insert(33);
 heap.insert(18);
 heap.insert(27);
 heap.insert(12);
-heap.insert(55);
+
+//        41
+//  39          33
+// 18 27       12
+
+heap.insert(55); // we are inserting this .. [55, 39, 41, 18, 27, 12, 33]
+//       55
+//   39      41
+// 18  27  12  33
+
+heap.extractMax() //[41, 39, 33, 18, 27, 12]
+//      41
+//   39     33
+// 18  27  12
+ 
+heap.extractMax() // [39, 27, 33, 18, 12]
+
+//       39
+//   27      33
+// 18  12

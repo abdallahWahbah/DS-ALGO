@@ -1,0 +1,126 @@
+class Graph
+{
+    constructor()
+    {
+        this.adjancyList = {};
+    }
+    addVertex(vertex)
+    {
+        if(!this.adjancyList[vertex]) this.adjancyList[vertex] = [];
+    }
+    addEdge(vertex1, vertex2)
+    {
+        this.adjancyList[vertex1].push(vertex2);
+        this.adjancyList[vertex2].push(vertex1);
+    }
+    removeEdge(vertex1, vertex2)
+    {
+        this.adjancyList[vertex1] = this.adjancyList[vertex1].filter(el => el !== vertex2);
+        this.adjancyList[vertex2] = this.adjancyList[vertex2].filter(el => el !== vertex1);
+    }
+    removeVertex(vertex)
+    {
+        while(this.adjancyList[vertex].length)
+        {
+            let anotherVertex = this.adjancyList[vertex].pop();
+            this.removeEdge(vertex, anotherVertex);
+        }
+        delete this.adjancyList[vertex];
+    }
+    depthFirstRecursive(start)
+    {
+        let res = [];
+        let visited = {};
+        let list = this.adjacencyList;
+
+        const recursiveFunc = (vertex) =>
+        {
+            if(!vertex) return null;
+            visited[vertex] = true;
+            res.push(vertex);
+            list[vertex].forEach(neighbour =>
+            {
+                if(!visited[neighbour]) recursiveFunc(neighbour) 
+            });
+        }
+        recursiveFunc(start);
+        return res;
+    }
+    depthFirstIterative(start)
+    {
+        let stack = [start];
+        let res = [];
+        let visited = {};
+        let currentVertex;
+
+        visited[start] = true;
+
+        while(stack.length)
+        {
+            currentVertex = stack.pop();
+            res.push(currentVertex);
+            this.adjacencyList[currentVertex].forEach(neighbour =>
+            {
+                if(!visited[neighbour])
+                {
+                    visited[neighbour] = true;
+                    stack.push(neighbour);
+                }
+            });
+        }
+        return res;
+    }
+    BreadthFirst(start)
+    {
+        let queue = [start];
+        let res = [];
+        let visited = {};
+        let currentVertex;
+
+        visited[start] = true;
+
+        while(queue.length)
+        {
+            currentVertex = queue.shift();
+            res.push(currentVertex);
+
+            this.adjacencyList[currentVertex].forEach(neighbour =>
+            {
+                if(!visited[neighbour])
+                {
+                    visited[neighbour] = true;
+                    queue.push(neighbour); // if you used unshift instead of push --> res = ['A', 'C', 'E', 'F', 'D', 'B']
+                }
+            });
+        }
+        return res;
+    }
+}
+// {
+//     "A": ["B", "C"],
+//     "B": ["A", "D"],
+//     "C": ["A", "E"],
+//     "D": ["B", "E", "F"],
+//     "E": ["C", "D", "F"],
+//     "F": ["D", "E"],
+// }
+let g =new Graph();
+
+g.addVertex("A")
+g.addVertex("B")
+g.addVertex("C")
+g.addVertex("D")
+g.addVertex("E")
+g.addVertex("F")
+
+g.addEdge("A", "B")
+g.addEdge("A", "C")
+g.addEdge("B","D")
+g.addEdge("C","E")
+g.addEdge("D","E")
+g.addEdge("D","F")
+g.addEdge("E","F")
+
+g.depthFirstRecursive("A") // ["A", "B", "D", "E", "C", "F"]
+g.depthFirstIterative("A") // ['A', 'C', 'E', 'F', 'D', 'B']
+g.BreadthFirst("A") // ['A', 'B', 'C', 'D', 'E', 'F']("A") // ['A', 'B', 'C', 'D', 'E', 'F']

@@ -89,7 +89,7 @@ class Graph
                 if(!visited[neighbour])
                 {
                     visited[neighbour] = true;
-                    queue.push(neighbour);
+                    queue.push(neighbour); // if you used unshift instead of push --> res = ['A', 'C', 'E', 'F', 'D', 'B']
                 }
             });
         }
@@ -120,3 +120,7 @@ g.addEdge("C","E")
 g.addEdge("D","E")
 g.addEdge("D","F")
 g.addEdge("E","F")
+
+g.depthFirstRecursive("A") // ["A", "B", "D", "E", "C", "F"]
+g.depthFirstIterative("A") // ['A', 'C', 'E', 'F', 'D', 'B']
+g.BreadthFirst("A") // ['A', 'B', 'C', 'D', 'E', 'F']("A") // ['A', 'B', 'C', 'D', 'E', 'F']
