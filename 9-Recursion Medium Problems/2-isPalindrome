@@ -1,0 +1,20 @@
+// just like the reverse one
+
+const isPalindrome = str =>
+{
+    const getReverse = str =>
+    {
+        if(str.length === 1) return str
+        return getReverse(str.slice(1)) + str[0]
+    }
+    const reversedString = getReverse(str);
+
+    console.log(str === reversedString)
+    return str === reversedString
+}
+
+isPalindrome('awesome') // false
+isPalindrome('foobar') // false
+isPalindrome('tacocat') // true
+isPalindrome('amanaplanacanalpanama') // true
+isPalindrome('amanaplanacanalpandemonium') // false

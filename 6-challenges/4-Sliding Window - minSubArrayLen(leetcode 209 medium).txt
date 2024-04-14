@@ -1,9 +1,11 @@
 question course link: https://www.udemy.com/course/js-algorithms-and-data-structures-masterclass/learn/quiz/4410608#overview
 solution video: https://www.youtube.com/watch?v=aYqYMIqZx5s
+Leetcode 209. Minimum Size Subarray Sum: https://leetcode.com/problems/minimum-size-subarray-sum/description/
 
 Write a function called minSubArrayLen which accepts two parameters - an array of positive integers and a positive integer.
 
-This function should return the minimal length of a contiguous subarray of which the sum is greater than or equal to the integer passed to the function. If there isn't one, return 0 instead.
+This function should return the minimal length of a contiguous subarray 
+of which the sum is greater than or equal to the integer passed to the function. If there isn't one, return 0 instead.
 Examples:
 
 minSubArrayLen([2,3,1,2,4,3], 7) // 2 -> because [4,3] is the smallest subarray
@@ -18,7 +20,7 @@ Time Complexity - O(n)
 Space Complexity - O(1)
 
 
-
+// the parameters in leetcode problem is (target then arr)
 const minSubArrayLen = (arr, target) =>
 {
     if(arr.length === 0) return 0;
@@ -41,7 +43,6 @@ const minSubArrayLen = (arr, target) =>
     }
 
     return minLength === Infinity ? 0 : minLength;
-    
 }
 
 console.log(minSubArrayLen([2,3,1,2,4,3], 7)) // 2 -> because [4,3] is the smallest subarray

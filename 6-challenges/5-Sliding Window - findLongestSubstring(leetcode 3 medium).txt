@@ -1,7 +1,10 @@
 question course link: https://www.udemy.com/course/js-algorithms-and-data-structures-masterclass/learn/quiz/4410594#overview
 solution video: https://www.youtube.com/watch?v=wiGpQwVHdE0
+leetcode 3. Longest Substring Without Repeating Characters: https://leetcode.com/problems/longest-substring-without-repeating-characters/description/
 
-Write a function called findLongestSubstring, which accepts a string and returns the length of the longest substring with all distinct characters.
+
+Write a function called findLongestSubstring, 
+which accepts a string and returns the length of the longest substring with all distinct characters.
 
 findLongestSubstring('') // 0
 findLongestSubstring('rithmschool') // 7
@@ -43,3 +46,6 @@ console.log(findLongestSubstring('thecatinthehat')) // 7
 console.log(findLongestSubstring('bbbbbb')) // 1
 console.log(findLongestSubstring('longestsubstring')) // 8
 console.log(findLongestSubstring('thisishowwedoit')) // 6
+
+Time Complexity: O(n)
+Space Complexity: O(n) because of Set

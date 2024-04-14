@@ -1,4 +1,4 @@
-// He solved it in another way
+// He solved it in another way (but close to mine)
 
 const anagram = (str1, str2) =>
 {

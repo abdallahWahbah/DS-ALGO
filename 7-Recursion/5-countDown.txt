@@ -1,10 +1,47 @@
-// print numbers from a given number to one
-const countDown = (num) =>
+console.log("-----------------countDownToZeroIncluding-----------------")
+
+const countDownToZeroIncluding = num =>
+{
+    if(num < 0) return;
+    console.log(num);
+    num--;
+    countDownToZeroIncluding(num)
+}
+
+countDownToZeroIncluding(5)
+
+console.log("-----------------countDownToZeroExcluding-----------------")
+
+const countDownToZeroExcluding = num =>
 {
     if(num === 0) return;
     console.log(num);
-    num--
-    countDown(num)
+    num--;
+    countDownToZeroExcluding(num)
 }
 
-countDown(5)
+countDownToZeroExcluding(4)
+
+console.log("-----------------countUpToExluding-----------------")
+
+const countUpToExluding = (num, initialNumber) =>
+{
+    if(initialNumber === num) return;
+    console.log(initialNumber);
+    initialNumber++;
+    countUpToExluding(num, initialNumber)
+}
+
+countUpToExluding(5, 0)
+
+console.log("---------------countUpToIncluding-------------------")
+
+const countUpToIncluding = (num, initialNumber) =>
+{
+    if(initialNumber > num) return;
+    console.log(initialNumber);
+    initialNumber++;
+    countUpToIncluding(num, initialNumber)
+}
+
+countUpToIncluding(5, 0)
